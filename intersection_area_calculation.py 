@@ -1,0 +1,39 @@
+def intersection_area(pred_coord, truth_coord):
+    xmin_1 = truth_coord[0]
+    ymin_1 = truth_coord[1]
+    xmax_1 = truth_coord[2]
+    ymax_1 = truth_coord[3]
+    
+    xmin_2 = pred_coord[0]
+    ymin_2 = pred_coord[1]
+    xmax_2 = pred_coord[2]
+    ymax_2 = pred_coord[3]
+
+    if ((xmin_1 <= xmin_2) and (xmin_2 <= xmax_1)): inter_xmin = xmin_2
+    elif ((xmin_2 <= xmin_1) and (xmin_1 <= xmax_2)): inter_xmin = xmin_1
+    else: inter_xmin = 0
+        
+    if ((xmin_1 <= xmax_2) and (xmax_2 <= xmax_1)): inter_xmax = xmax_2
+    elif ((xmin_2 <= xmax_1) and (xmax_1 <= xmax_2)): inter_xmax = xmax_1
+    else: inter_xmax = 0
+        
+    if ((ymin_1 <= ymin_2) and (ymin_2 <= ymax_1)): inter_ymin = ymin_2
+    elif ((ymin_2 <= ymin_1) and (ymin_1 <= ymax_2)): inter_ymin = ymin_1
+    else: inter_ymin = 0
+        
+    if ((ymin_1 <= ymax_2) and (ymax_2 <= ymax_1)): inter_ymax = ymax_2
+    elif ((ymin_2 <= ymax_1) and (ymax_1 <= ymax_2)): inter_ymax = ymax_1
+    else: inter_ymax = 0
+        
+    if inter_xmax == 0 or inter_ymax == 0:
+        inter_xmin = 0
+        inter_ymin = 0
+        inter_xmax = 0
+        inter_ymax = 0
+
+    truth_area = (xmax_1 - xmin_1) * (ymax_1 - ymin_1)
+    pred_area = (xmax_2 - xmin_2) * (ymax_2 - ymin_2)
+
+    inter_area = (inter_xmax - inter_xmin) * (inter_ymax - inter_ymin)
+
+    return truth_area, pred_area, inter_area
